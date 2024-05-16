@@ -8,8 +8,13 @@ export const breathStore = defineStore('breathStore', () => {
         currentPage.value = 'breath';
     }
 
+    function goToHomepage() {
+        currentPage.value = 'home';
+    }
+
     return {
         currentPage,
         goToBreathPage,
+        goToHomepage,
     }
 });
