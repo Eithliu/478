@@ -1,33 +1,57 @@
 <template>
-    <h1>Coucou !</h1>
-    <div class="circle-animation" :class="start">
+    <h1>On inspire ...</h1>
+    <p v-if="countdown > 0">{{ countdown }}</p>
+    <div class="circle-animation">
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from'vue';
 
 const props = defineProps({
-    className: {
-        type: String,
-        default: '',
+    duration: {
+        type: Number,
+        required: true,
     }
 });
+const countdown = ref(props.duration);
+
+const startCountdown = () => {
+    const timer = setInterval(() => {
+        countdown.value--;
+        if (countdown.value === 0) {
+          clearInterval(timer);
+        }
+      }, 1000);
+};
+
+onMounted(() => {
+    startCountdown();
+});
+
+watch(() => props.duration, () => {
+      countdown.value = props.duration;
+      startCountdown();
+    });
+
 </script>
 
 
 <style scoped>
 .circle-animation {
-    margin: auto;
+    margin: 25% auto;
     width: 50px;
     height: 50px;
     border: solid 1px #6694ef;
     border-radius: 50%;
+    animation-direction: alternate;
+	animation-name: breathe;
+	animation-duration: 2s;
+	animation-iteration-count : infinite;
+	animation-timing-function: ease-in-out;
 }
-
-.start {
-    transform-origin: center;
-    transform: scale(2);
-    transition: transform 4s ease-in-out;
+@keyframes breathe {
+	0%  { transform: scale(1); }
+	100% { transform: scale(2); }
 }
 </style>
