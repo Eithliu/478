@@ -1,24 +1,35 @@
 <template>
-    <p v-if="countdown > 0" class="timer">{{ countdown }}</p>
+  <p class="timer">{{ countdown }}</p>
 </template>
-
 
 <script setup>
 import { ref, onMounted } from 'vue';
 
-const countdown = ref(4);
+const duration = [4, 7, 8];
+let currentIndex = 0;
+const countdown = ref(duration[currentIndex]);
+let timer;
 
 const startCountdown = () => {
-    const timer = setInterval(() => {
+  timer = setInterval(() => {
     countdown.value--;
-    if (countdown.value === 0) {
-        clearInterval(timer);
+    if (countdown.value === -1) {
+      currentIndex = (currentIndex + 1) % duration.length;
+      countdown.value = duration[currentIndex];
     }
-}, 1000);
+  }, 1000);
 
-  onMounted(() => {
-      startCountdown();
-  })
 }
+onMounted(() => {
+  startCountdown();
+})
 
 </script>
+
+<style scoped>
+.timer {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+}
+</style>

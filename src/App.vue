@@ -10,7 +10,7 @@ const {
 } = store;
 
 const duration = ref([4, 7, 8]);
-const sessionDuration = ref(Number);
+const sessionDuration = ref(0);
 
 const setSessionDuration = computed(() => {
   sessionDuration.value = 2;
@@ -31,7 +31,7 @@ const setSessionDuration = computed(() => {
     </div>
     <button @click="goToBreathPage">Démarrer la session de respiration</button>
   </div>
-  <BreathPage v-if="store.currentPage === 'breath'" :duration="duration[0]" />
+  <BreathPage v-if="store.currentPage === 'breath'" />
 </template>
 
 <style scoped>
