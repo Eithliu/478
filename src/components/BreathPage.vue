@@ -10,15 +10,18 @@
 <script setup>
 import { ref, computed } from'vue';
 import { breathStore } from '../store';
-import CountdownComponent from "./CountdownComponent.vue";
+import CountdownComponent from './CountdownComponent.vue';
 
 const store = breathStore();
 const timer = ref(0);
 const sentence = ref('');
-const displaySentence = computed(() => {
 
-    return sentence.value = 'On inspire...';
-});
+defineProps({
+  sessionDuration: {
+    type: String,
+    required: true,
+  }
+})
 
 </script>
 
