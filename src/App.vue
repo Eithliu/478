@@ -1,7 +1,7 @@
 <script setup>
 import BreathPage from "./components/BreathPage.vue";
 import { breathStore } from './store.js';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const store = breathStore();
 const {

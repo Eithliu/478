@@ -3,26 +3,48 @@
     <button @click="store.goToHomepage">Retour</button>
   </div>
   <p>La méthode 4-7-8 a pour objectif de focaliser son attention sur une seule chose : sa respiration. Cet exercice permet à la fois de calmer le rythme cardiaque, mais aussi de se focaliser sur une unique chose, permettant ainsi des conditions idéales pour se détendre et tomber facilement dans le sommeil.</p>
-  <CountdownComponent :timer="timer" />
+  <CountdownComponent :timer="timer" v-if="sessionInSeconds !== 0" />
   <div class="circle-animation"></div>
+  <p>Durée de la session {{ sessionInSeconds }}</p>
 </template>
 
 <script setup>
-import { ref, computed } from'vue';
+import { ref, onMounted, onUnmounted } from'vue';
 import { breathStore } from '../store';
 import CountdownComponent from './CountdownComponent.vue';
 
 const store = breathStore();
 const timer = ref(0);
-const sentence = ref('');
 
-defineProps({
+const props = defineProps({
   sessionDuration: {
     type: String,
     required: true,
   }
 })
 
+
+let currentIndex = 1;
+const sessionInSeconds = ref(0);
+let duration = props.sessionDuration.split(' ')[0];
+sessionInSeconds.value = parseInt(duration * 60);
+const startCountdown = () => {
+    timer.value = setInterval(() => {
+        sessionInSeconds.value--;
+        if (sessionInSeconds.value === -1) {
+            currentIndex = (currentIndex + 1) % sessionInSeconds.value.length;
+            sessionInSeconds.value = sessionInSeconds.value[currentIndex];
+        }
+    }, 1000);
+
+}
+onMounted(() => {
+    startCountdown();
+})
+
+onUnmounted(() => {
+    clearInterval(timer.value);
+})
 </script>
 
 <style scoped>
