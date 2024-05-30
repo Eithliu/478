@@ -3,8 +3,10 @@
     <button @click="store.goToHomepage">Retour</button>
   </div>
   <p>La méthode 4-7-8 a pour objectif de focaliser son attention sur une seule chose : sa respiration. Cet exercice permet à la fois de calmer le rythme cardiaque, mais aussi de se focaliser sur une unique chose, permettant ainsi des conditions idéales pour se détendre et tomber facilement dans le sommeil.</p>
-  <CountdownComponent :timer="timer" v-if="sessionInSeconds !== 0" />
-  <div class="circle-animation"></div>
+  <div class="countdown-animation" v-if="sessionInSeconds !== 0">
+    <CountdownComponent :timer="timer" />
+    <div class="circle-animation"></div>
+  </div>
   <p>Durée de la session {{ sessionInSeconds }}</p>
 </template>
 
