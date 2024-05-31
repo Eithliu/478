@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const duration = [4, 7, 8];
 const sentences = [
@@ -16,7 +16,8 @@ let currentIndex = 0;
 const countdown = ref(duration[currentIndex]);
 const sentenceDisplayer = ref(sentences[currentIndex]);
 let timer;
-const startCountdown = () => {
+
+(function startCountdown() {
   timer = setInterval(() => {
     countdown.value--;
     if (countdown.value === -1) {
@@ -25,11 +26,7 @@ const startCountdown = () => {
       sentenceDisplayer.value = sentences[currentIndex];
     }
   }, 1000);
-
-}
-onMounted(() => {
-  startCountdown();
-})
+})();
 
 onUnmounted(() => {
   clearInterval(timer);

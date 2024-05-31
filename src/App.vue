@@ -1,7 +1,7 @@
 <script setup>
 import BreathPage from "./components/BreathPage.vue";
 import { breathStore } from './store.js';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 const store = breathStore();
 const {
@@ -18,33 +18,29 @@ const sessionDurationInput = ref('');
     <p>Prenez le temps...</p>
     <label for="session">Choisissez la durée de votre session de respiration</label>
     <select name="session-duration" id="session" v-model="sessionDurationInput">
-      <option v-for="i of 20">{{ i }} minutes</option>
+      <option v-for="i of 20">{{ i }} {{ i === 1 ? 'minute' : 'minutes' }}</option>
     </select>
-    <button @click="goToBreathPage">Démarrer la session de respiration</button>
+    <button :class="sessionDurationInput ? '': 'unavailable'" @click="goToBreathPage">Démarrer la session de respiration</button>
   </div>
   <BreathPage v-if="store.currentPage === 'breath'" :sessionDuration="sessionDurationInput" />
 </template>
 
 <style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
-}
 button {
   width: 50%;
   margin: auto;
-}
-.btn-duration {
-  display: flex;
-  gap: 10px;
-  margin: 0 10px 20px;
 }
 
 #session {
   width: 50%;
   margin: 1rem auto;
+}
+
+option {
+  padding: 1rem;
+}
+
+.unavailable {
+  cursor: not-allowed;
 }
 </style>

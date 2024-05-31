@@ -7,16 +7,30 @@
     <CountdownComponent :timer="timer" />
     <div class="circle-animation"></div>
   </div>
-  <p>Durée de la session {{ sessionInSeconds }}</p>
+  <p v-if="sessionInSeconds !== 0">Durée de la session {{ prettyTime(sessionInSeconds) }}</p>
+  <div class="end-session" v-if="sessionInSeconds === 0">
+      <h2>Bravo !</h2>
+      <p >{{ addConfettis }}</p>
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from'vue';
+import { ref, onMounted, onUnmounted, computed } from'vue';
 import { breathStore } from '../store';
 import CountdownComponent from './CountdownComponent.vue';
+import JSConfetti from 'js-confetti'
+
+const jsConfetti = new JSConfetti();
+
+const addConfettis = computed(() => {
+    jsConfetti.addConfetti();
+})
 
 const store = breathStore();
 const timer = ref(0);
+const {
+    goToBreathPage
+} = store;
 
 const props = defineProps({
   sessionDuration: {
@@ -30,22 +44,31 @@ let currentIndex = 1;
 const sessionInSeconds = ref(0);
 let duration = props.sessionDuration.split(' ')[0];
 sessionInSeconds.value = parseInt(duration * 60);
-const startCountdown = () => {
+
+function prettyTime(time) {
+    const minutes = Math.floor(time / 60);
+    const minutesString = minutes < 10 ? `0${minutes}` : minutes;
+    const seconds = time % 60;
+    const secondsString = seconds < 10 ? `0${seconds}` : seconds;
+    return `${minutesString}:${secondsString}`;
+}
+
+(function startSessionCountdown() {
     timer.value = setInterval(() => {
         sessionInSeconds.value--;
         if (sessionInSeconds.value === -1) {
             currentIndex = (currentIndex + 1) % sessionInSeconds.value.length;
             sessionInSeconds.value = sessionInSeconds.value[currentIndex];
         }
+        if (sessionInSeconds.value === 0) {
+            clearInterval(timer.value);
+        }
     }, 1000);
-
-}
-onMounted(() => {
-    startCountdown();
-})
+})();
 
 onUnmounted(() => {
     clearInterval(timer.value);
+
 })
 </script>
 
@@ -59,6 +82,10 @@ p {
     justify-content: center;
     margin: 1rem;
     text-align: center;
+}
+.end-session > h2 {
+    text-align: center;
+    font-size: 3rem;
 }
 .circle-animation {
     margin: 5% auto;
