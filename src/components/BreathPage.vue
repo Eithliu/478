@@ -3,23 +3,73 @@
     <button @click="store.goToHomepage">Retour</button>
   </div>
   <p>La méthode 4-7-8 a pour objectif de focaliser son attention sur une seule chose : sa respiration. Cet exercice permet à la fois de calmer le rythme cardiaque, mais aussi de se focaliser sur une unique chose, permettant ainsi des conditions idéales pour se détendre et tomber facilement dans le sommeil.</p>
-  <CountdownComponent :timer="timer" />
-  <div class="circle-animation"></div>
+  <div class="countdown-animation" v-if="sessionInSeconds !== 0">
+    <CountdownComponent :timer="timer" />
+    <div class="circle-animation"></div>
+  </div>
+  <p v-if="sessionInSeconds !== 0">Durée de la session {{ prettyTime(sessionInSeconds) }}</p>
+  <div class="end-session" v-if="sessionInSeconds === 0">
+      <h2>Bravo !</h2>
+      <p >{{ addConfettis }}</p>
+  </div>
 </template>
 
 <script setup>
-import { ref, computed } from'vue';
+import { ref, onMounted, onUnmounted, computed } from'vue';
 import { breathStore } from '../store';
-import CountdownComponent from "./CountdownComponent.vue";
+import CountdownComponent from './CountdownComponent.vue';
+import JSConfetti from 'js-confetti'
+
+const jsConfetti = new JSConfetti();
+
+const addConfettis = computed(() => {
+    jsConfetti.addConfetti();
+})
 
 const store = breathStore();
 const timer = ref(0);
-const sentence = ref('');
-const displaySentence = computed(() => {
+const {
+    goToBreathPage
+} = store;
 
-    return sentence.value = 'On inspire...';
-});
+const props = defineProps({
+  sessionDuration: {
+    type: String,
+    required: true,
+  }
+})
 
+
+let currentIndex = 1;
+const sessionInSeconds = ref(0);
+let duration = props.sessionDuration.split(' ')[0];
+sessionInSeconds.value = parseInt(duration * 60);
+
+function prettyTime(time) {
+    const minutes = Math.floor(time / 60);
+    const minutesString = minutes < 10 ? `0${minutes}` : minutes;
+    const seconds = time % 60;
+    const secondsString = seconds < 10 ? `0${seconds}` : seconds;
+    return `${minutesString}:${secondsString}`;
+}
+
+(function startSessionCountdown() {
+    timer.value = setInterval(() => {
+        sessionInSeconds.value--;
+        if (sessionInSeconds.value === -1) {
+            currentIndex = (currentIndex + 1) % sessionInSeconds.value.length;
+            sessionInSeconds.value = sessionInSeconds.value[currentIndex];
+        }
+        if (sessionInSeconds.value === 0) {
+            clearInterval(timer.value);
+        }
+    }, 1000);
+})();
+
+onUnmounted(() => {
+    clearInterval(timer.value);
+
+})
 </script>
 
 <style scoped>
@@ -32,6 +82,10 @@ p {
     justify-content: center;
     margin: 1rem;
     text-align: center;
+}
+.end-session > h2 {
+    text-align: center;
+    font-size: 3rem;
 }
 .circle-animation {
     margin: 5% auto;
