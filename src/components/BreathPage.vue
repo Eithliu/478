@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from "vue";
+
+import JSConfetti from "js-confetti";
 import { breathStore } from "../store";
 import CountdownComponent from "./CountdownComponent.vue";
-import JSConfetti from "js-confetti";
 
 const jsConfetti = new JSConfetti();
 
@@ -18,6 +19,9 @@ const props = defineProps({
   sessionDuration: {
     type: String,
     required: true,
+  },
+  sound: {
+    type: Boolean,
   },
 });
 
@@ -53,6 +57,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <audio v-if="sound === true" loop autoplay src="/478-sound.wav"></audio>
   <div class="banner">
     <button @click="store.goToHomepage">Retour</button>
   </div>
@@ -91,7 +96,7 @@ p {
   border-radius: 50%;
   animation-direction: alternate;
   animation-name: breathe;
-  animation-duration: 22s;
+  animation-duration: 19s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }

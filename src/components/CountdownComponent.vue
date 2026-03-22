@@ -15,7 +15,7 @@ let timer;
 function startCountdown() {
   timer = setInterval(() => {
     countdown.value--;
-    if (countdown.value === -1) {
+    if (countdown.value === 0) {
       currentIndex = (currentIndex + 1) % duration.length;
       countdown.value = duration[currentIndex];
       sentenceDisplayer.value = sentences[currentIndex];
