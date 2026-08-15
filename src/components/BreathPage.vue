@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onUnmounted, computed } from "vue";
 
 import JSConfetti from "js-confetti";
 import { breathStore } from "../store";
@@ -59,14 +59,14 @@ onUnmounted(() => {
 <template>
   <audio v-if="sound === true" loop autoplay src="/478-sound.wav"></audio>
   <div class="banner">
-    <button @click="store.goToHomepage">Retour</button>
+    <button @click="store.goToHomepage">{{ $t('back') }}</button>
   </div>
   <div class="countdown-animation" v-if="sessionInSeconds !== 0">
     <CountdownComponent :timer="timer" />
     <div class="circle-animation"></div>
   </div>
   <p v-if="sessionInSeconds !== 0">
-    Durée de la session {{ prettyTime(sessionInSeconds) }}
+    {{ $t('sessionDuration') }} {{ prettyTime(sessionInSeconds) }}
   </p>
   <div class="end-session" v-if="sessionInSeconds === 0">
     <h2>Bravo !</h2>

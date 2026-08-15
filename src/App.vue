@@ -1,5 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
+import { useTranslation } from "i18next-vue";
+const { t, i18next } = useTranslation();
 
 import { breathStore } from "./store.js";
 import BreathPage from "./components/BreathPage.vue";
@@ -24,10 +26,14 @@ const toggleSound = computed(() => {
   <div class="container" v-if="store.currentPage === 'home'">
     <h1>4 7 8</h1>
     <div class="take-time">
-      <button @click="toggleSound" class="sound-toggle">
-        <span class="sr-only">{{
-          sound ? "Désactiver le son" : "Activer le son"
-        }}</span>
+      <button
+        @click="toggleSound"
+        class="sound-toggle"
+        :title="sound ? $t('deactivateSound') : $t('activateSound')"
+      >
+        <span class="sr-only">
+          {{ sound ? $t('deactivateSound') : $t('activateSound') }}
+        </span>
         <img
           v-if="sound === true"
           :src="soundOnIcon"
@@ -53,19 +59,15 @@ const toggleSound = computed(() => {
             :class="showExplanation ? 'rotate' : 'unrotate'"
           />
         </button>
-        <p class="take-a-moment">Prenez le temps...</p>
+        <p class="take-a-moment">{{ $t('takeTime') }}</p>
       </div>
       <p v-if="showExplanation" class="explanation">
-        La méthode 4-7-8 a pour objectif de focaliser son attention sur une
-        seule chose : sa respiration. Cet exercice permet à la fois de calmer le
-        rythme cardiaque, mais aussi de se focaliser sur une unique chose,
-        permettant ainsi des conditions idéales pour se détendre et tomber
-        facilement dans le sommeil.
+        {{ $t('478Explanation') }}
       </p>
     </div>
-    <label for="session"
-      >Choisissez la durée de votre session de respiration</label
-    >
+    <label for="session">
+      {{ $t('chooseDuration') }}
+    </label>
     <select
       name="session-duration"
       id="session"
@@ -81,7 +83,7 @@ const toggleSound = computed(() => {
       :class="sessionDurationInput ? '' : 'unavailable'"
       @click="goToBreathPage"
     >
-      Démarrer la session de respiration
+      {{ $t('startSession') }}
     </button>
   </div>
   <BreathPage
