@@ -10,11 +10,11 @@ import frJson from './locales/fr.json';
 import enJson from './locales/en.json';
 
 i18next.init({
-  lng: navigator.language ?? 'fr',
+  lng: navigator.language,
   interpolation: {
     escapeValue: false
   },
-  fallbackLng: false,
+  fallbackLng: 'fr',
   resources: {
     fr: { translation: frJson },
     en: { translation: enJson }
