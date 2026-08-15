@@ -1,11 +1,12 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import i18n from 'i18next';
 
 const duration = [4, 7, 8];
 const sentences = [
-  "On inspire...",
-  "On bloque sa respiration...",
-  "Et on expire...",
+  i18n.t('breathIn'),
+  i18n.t('block'),
+  i18n.t('breathOut'),
 ];
 let currentIndex = 0;
 const countdown = ref(duration[currentIndex]);
