@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import i18n from 'i18next';
 
 const duration = [4, 7, 8];
@@ -8,18 +8,17 @@ const sentences = [
   i18n.t('block'),
   i18n.t('breathOut'),
 ];
-let currentIndex = 0;
-const countdown = ref(duration[currentIndex]);
-const sentenceDisplayer = ref(sentences[currentIndex]);
-let timer;
+const currentIndex = ref(0);
+const countdown = ref(duration[0]);
+const sentenceDisplayer = computed(() => sentences[currentIndex.value]);
+const timer = ref();
 
 function startCountdown() {
-  timer = setInterval(() => {
-    countdown.value--;
+  timer.value = setInterval(() => {
+    countdown.value -= 1;
     if (countdown.value === 0) {
-      currentIndex = (currentIndex + 1) % duration.length;
-      countdown.value = duration[currentIndex];
-      sentenceDisplayer.value = sentences[currentIndex];
+      currentIndex.value = (currentIndex.value + 1) % duration.length;
+      countdown.value = duration[currentIndex.value];
     }
   }, 1000);
 }
@@ -29,7 +28,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  clearInterval(timer);
+  clearInterval(timer.value);
 });
 </script>
 
