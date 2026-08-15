@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 
 import JSConfetti from "js-confetti";
 import { breathStore } from "../store";
@@ -38,7 +38,7 @@ function prettyTime(time) {
   return `${minutesString}:${secondsString}`;
 }
 
-(function startSessionCountdown() {
+function startSessionCountdown() {
   timer.value = setInterval(() => {
     sessionInSeconds.value--;
     if (sessionInSeconds.value === -1) {
@@ -49,7 +49,11 @@ function prettyTime(time) {
       clearInterval(timer.value);
     }
   }, 1000);
-})();
+};
+
+onMounted(() => {
+  startSessionCountdown();
+});
 
 onUnmounted(() => {
   clearInterval(timer.value);
@@ -94,7 +98,7 @@ p {
   height: 100px;
   border: solid 1px #6694ef;
   border-radius: 50%;
-  animation-direction: alternate;
+  animation-direction: normal;
   animation-name: breathe;
   animation-duration: 19s;
   animation-iteration-count: infinite;
@@ -105,16 +109,13 @@ p {
     transform: scale(0.5);
     box-shadow: 0 0 30px #24c8db;
   }
-  22.72% {
+  21.05% {
     transform: scale(1);
-    box-shadow: 0 0 80px #24c8db;
+    box-shadow: 0 0 80px #249b73;
   }
-  40.9% {
+  57.89% {
+    transform: scale(1);
     box-shadow: 0 0 40px #249b73;
-  }
-  59.09% {
-    transform: scale(1);
-    box-shadow: 0 0 80px #24c8db;
   }
   100% {
     transform: scale(0.5);
