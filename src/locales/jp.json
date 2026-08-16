@@ -1,4 +1,5 @@
 {
+  "title": "4 7 8",
   "takeTime": "少し時間をとって…",
   "deactivateSound": "音をオフにする",
   "activateSound": "音をオンにする",
@@ -6,6 +7,7 @@
   "chooseDuration": "呼吸セッションの時間をお選びください",
   "startSession": "呼吸セッションを開始する",
   "cycles": "サイクル",
+  "cycle": "サイクル",
   "minutes": "分",
   "minute": "分",
   "seconds": "秒",

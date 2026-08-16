@@ -1,4 +1,5 @@
 {
+  "title": "4 7 8",
   "takeTime": "Prenez le temps…",
   "deactivateSound": "Désactiver le son",
   "activateSound": "Activer le son",
@@ -6,6 +7,7 @@
   "chooseDuration": "Choisissez la durée de votre session de respiration",
   "startSession": "Démarrer la session de respiration",
   "cycles": "cycles",
+  "cycle": "cycle",
   "minutes": "minutes",
   "minute": "minute",
   "seconds": "secondes",

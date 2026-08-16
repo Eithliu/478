@@ -45,7 +45,10 @@ function prettyTime(time) {
 
 <template>
   <div class="container" v-if="store.currentPage === 'home'">
-    <h1>4 7 8</h1>
+    <h1 class="icon-title">
+      <span class="sr-only">{{ $t('title') }}</span>
+      <img src="../touch/478-96.png" class="icon" />
+    </h1>
     <div class="take-time">
       <button
         @click="toggleSound"
@@ -95,8 +98,8 @@ function prettyTime(time) {
       class="session"
       v-model="sessionDurationInput"
     >
-      <option v-for="i of 20" :value="i">
-        {{ i }} {{ $t('cycles') }} ({{ prettyTime(i * 19) }})
+      <option v-for="i of 50" :value="i">
+        {{ i }} {{ i == 1 ? $t('cycle') : $t('cycles') }} ({{ prettyTime(i * 19) }})
       </option>
     </select>
     <button
@@ -115,6 +118,16 @@ function prettyTime(time) {
 </template>
 
 <style scoped>
+.icon-title {
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  width: 96px;
+  height: 96px;
+}
+
 .rotate {
   transition: transform 0.2s ease;
   transform: rotate(90deg);

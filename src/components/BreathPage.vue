@@ -31,7 +31,7 @@ const sessionInSeconds = ref(0);
 let duration = props.sessionDuration * 19;
 sessionInSeconds.value = parseInt(duration);
 
-function prettyTime(time) {
+function prettifyTime(time) {
   const minutes = Math.floor(time / 60);
   const minutesString = minutes < 10 ? `0${minutes}` : minutes;
   const seconds = time % 60;
@@ -49,8 +49,6 @@ function startSessionCountdown() {
     if (sessionInSeconds.value === 0) {
       clearInterval(timer.value);
     }
-    console.log(sessionInSeconds.value);
-    
   }, 1000);
 };
 
@@ -64,27 +62,37 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <audio v-if="sound === true" loop autoplay src="/478-sound.wav"></audio>
-  <div class="banner">
-    <button @click="store.goToHomepage">{{ $t('back') }}</button>
-  </div>
-  <div class="countdown-animation" v-if="sessionInSeconds !== 0">
-    <CountdownComponent :timer="timer" />
-    <div class="circle-animation"></div>
-  </div>
-  <p v-if="sessionInSeconds !== 0">
-    {{ $t('sessionDuration') }} {{ prettyTime(sessionInSeconds) }}
-  </p>
-  <div class="end-session" v-if="sessionInSeconds === 0">
-    <h2>{{ $t('congrats') }}</h2>
-    <p>{{ addConfettis }}</p>
-    <div class="startOverButton">
-      <button @click="store.goToHomepage" class="start-over-button">{{ $t('startOver') }}</button>
+  <div class="wrapper">
+    <audio v-if="sound === true" loop autoplay src="/478-sound.wav"></audio>
+    <div class="banner">
+      <button @click="store.goToHomepage">{{ $t('back') }}</button>
+    </div>
+    <div class="countdown-animation" v-if="sessionInSeconds !== 0">
+      <CountdownComponent :timer="timer" />
+      <div class="circle-animation"></div>
+    </div>
+    <p v-if="sessionInSeconds !== 0" class="session-duration">
+      {{ $t('sessionDuration') }} {{ prettifyTime(sessionInSeconds) }}
+    </p>
+    <div class="end-session" v-if="sessionInSeconds === 0">
+      <h2>{{ $t('congrats') }}</h2>
+      <p>{{ addConfettis }}</p>
+      <div class="startOverButton">
+        <button @click="store.goToHomepage" class="start-over-button">{{ $t('startOver') }}</button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
 .banner {
   display: flex;
 }

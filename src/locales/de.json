@@ -1,4 +1,5 @@
 {
+  "title": "4 7 8",
   "takeTime": "Nehmen Sie sich Zeit…",
   "deactivateSound": "stumm",
   "activateSound": "ausschalten den Ton",
@@ -6,6 +7,7 @@
   "chooseDuration": "Wählen Sie die Dauer Ihrer Atemübung aus",
   "startSession": "Atemsitzung starten",
   "cycles": "Zyklen",
+  "cycle": "Zykle",
   "minutes": "Minuten",
   "minute": "Minute",
   "seconds": "Sekunden",
