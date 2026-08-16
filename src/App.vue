@@ -29,7 +29,13 @@ function prettyTime(time) {
   if (minutes == 0) {
     return `${secondsString} ${i18n.t('seconds')}`
   }
+  if (seconds == '01') {
+    return `${minutes} ${i18n.t('minutes')} ${secondsString} ${i18n.t('second')}`
+  }
   if (minutes == 1) {
+    if (seconds == '01') {
+      return `${minutes} ${i18n.t('minute')} ${secondsString.split('')[1]} ${i18n.t('second')}`
+    }
     return `${minutes} ${i18n.t('minute')} ${secondsString} ${i18n.t('seconds')}`
   }
   return `${minutes} ${i18n.t('minutes')} ${secondsString} ${i18n.t('seconds')}`;
