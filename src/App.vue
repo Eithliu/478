@@ -47,7 +47,7 @@ function prettyTime(time) {
   <div class="container" v-if="store.currentPage === 'home'">
     <h1 class="icon-title">
       <span class="sr-only">{{ $t('title') }}</span>
-      <img src="../touch/478-96.png" class="icon" />
+      <img src="/touch/478-96.png" class="icon" />
     </h1>
     <div class="take-time">
       <button
