@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 import { useTranslation } from "i18next-vue";
 const { t, i18next } = useTranslation();
+import i18n from 'i18next';
 
 import { breathStore } from "./store.js";
 import BreathPage from "./components/BreathPage.vue";
@@ -20,6 +21,20 @@ const sound = ref(true);
 const toggleSound = computed(() => {
   sound.value = !sound.value;
 });
+
+function prettyTime(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  const secondsString = seconds < 10 ? `0${seconds}` : seconds;
+  if (minutes == 0) {
+    return `${secondsString} ${i18n.t('seconds')}`
+  }
+  if (minutes == 1) {
+    return `${minutes} ${i18n.t('minute')} ${secondsString} ${i18n.t('seconds')}`
+  }
+  return `${minutes} ${i18n.t('minutes')} ${secondsString} ${i18n.t('seconds')}`;
+  
+}
 </script>
 
 <template>
@@ -74,8 +89,8 @@ const toggleSound = computed(() => {
       class="session"
       v-model="sessionDurationInput"
     >
-      <option v-for="i of 20">
-        {{ i }} {{ i === 1 ? "minute" : "minutes" }}
+      <option v-for="i of 20" :value="i">
+        {{ i }} {{ $t('cycles') }} ({{ prettyTime(i * 19) }})
       </option>
     </select>
     <button

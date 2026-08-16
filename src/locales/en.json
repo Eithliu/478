@@ -5,10 +5,16 @@
   "478Explanation": "4-7-8 method's target is to focus on only one thing: breathing. This exercise allows you to slow down heart rate, and focus on one and only thing, therefore you're in ideal conditions to relax and to easily get to sleep.",
   "chooseDuration": "Choose your breathing session duration",
   "startSession": "Start breathing session",
+  "cycles": "cycles",
+  "minutes": "minutes",
+  "minute": "minute",
+  "seconds": "seconds",
+  "second": "second",
   "back": "Back",
   "breathIn": "Breath in…",
   "breathOut": "Breath out…",
   "block": "Hold your breath…",
   "sessionDuration": "Session duration",
-  "congrats": "Congratulations!"
+  "congrats": "Congratulations!",
+  "startOver": "Do you want to start over?"
 }

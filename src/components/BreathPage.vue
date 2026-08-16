@@ -4,6 +4,7 @@ import { ref, onMounted, onUnmounted, computed } from "vue";
 import JSConfetti from "js-confetti";
 import { breathStore } from "../store";
 import CountdownComponent from "./CountdownComponent.vue";
+import i18n from 'i18next';
 
 const jsConfetti = new JSConfetti();
 
@@ -27,8 +28,8 @@ const props = defineProps({
 
 let currentIndex = 1;
 const sessionInSeconds = ref(0);
-let duration = props.sessionDuration.split(" ")[0];
-sessionInSeconds.value = parseInt(duration * 60);
+let duration = props.sessionDuration * 19;
+sessionInSeconds.value = parseInt(duration);
 
 function prettyTime(time) {
   const minutes = Math.floor(time / 60);
@@ -73,8 +74,11 @@ onUnmounted(() => {
     {{ $t('sessionDuration') }} {{ prettyTime(sessionInSeconds) }}
   </p>
   <div class="end-session" v-if="sessionInSeconds === 0">
-    <h2>Bravo !</h2>
+    <h2>{{ $('congrats') }}</h2>
     <p>{{ addConfettis }}</p>
+    <div class="startOverButton">
+      <button @click="store.goToHomepage" class="start-over-button">{{ $t('startOver') }}</button>
+    </div>
   </div>
 </template>
 
@@ -82,16 +86,19 @@ onUnmounted(() => {
 .banner {
   display: flex;
 }
+
 p {
   display: flex;
   justify-content: center;
   margin: 1rem;
   text-align: center;
 }
+
 .end-session > h2 {
   text-align: center;
   font-size: 3rem;
 }
+
 .circle-animation {
   margin: 5% auto;
   width: 100px;
@@ -104,6 +111,18 @@ p {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
+.startOverButton {
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 4s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to {opacity: 100; }
+}
+
 @keyframes breathe {
   0% {
     transform: scale(0.5);

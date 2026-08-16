@@ -5,10 +5,16 @@
   "478Explanation": "La méthode 4-7-8 a pour objectif de focaliser son attention sur une seule chose : sa respiration. Cet exercice permet à la fois de calmer le rythme cardiaque, mais aussi de se focaliser sur une unique chose, permettant ainsi des conditions idéales pour se détendre et tomber facilement dans le sommeil.",
   "chooseDuration": "Choisissez la durée de votre session de respiration",
   "startSession": "Démarrer la session de respiration",
+  "cycles": "cycles",
+  "minutes": "minutes",
+  "minute": "minute",
+  "seconds": "secondes",
+  "second": "seconde",
   "back": "Retour",
   "breathIn": "On inspire…",
   "breathOut": "Et on expire…",
   "block": "On bloque sa respiration…",
   "sessionDuration": "Durée de la session",
-  "congrats": "Bravo !"
+  "congrats": "Bravo !",
+  "startOverSameDuration": "On recommence ?"
 }
