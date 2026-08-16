@@ -1,0 +1,20 @@
+{
+  "takeTime": "少し時間をとって…",
+  "deactivateSound": "音をオフにする",
+  "activateSound": "音をオンにする",
+  "478Explanation": "「4-7-8法」は、呼吸というたった一つのことに意識を集中させることを目的としています。このエクササイズは、心拍数を落ち着かせるだけでなく、一つのことに集中することを可能にし、リラックスしてスムーズに眠りにつくための理想的な状態を作り出します。",
+  "chooseDuration": "呼吸セッションの時間をお選びください",
+  "startSession": "呼吸セッションを開始する",
+  "cycles": "サイクル",
+  "minutes": "分",
+  "minute": "分",
+  "seconds": "秒",
+  "second": "秒",
+  "back": "戻す",
+  "breathIn": "息を吸う…",
+  "breathOut": "息を吐く…",
+  "block": "O息を止める…",
+  "sessionDuration": "セッションの継続時間",
+  "congrats": "おめでとうございます!",
+  "startOverSameDuration": "最初からやり直しますか？"
+}
