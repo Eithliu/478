@@ -41,7 +41,7 @@ function prettyTime(time) {
 
 function startSessionCountdown() {
   timer.value = setInterval(() => {
-    sessionInSeconds.value--;
+    sessionInSeconds.value -= 1;
     if (sessionInSeconds.value === -1) {
       currentIndex = (currentIndex + 1) % sessionInSeconds.value.length;
       sessionInSeconds.value = sessionInSeconds.value[currentIndex];
@@ -49,6 +49,8 @@ function startSessionCountdown() {
     if (sessionInSeconds.value === 0) {
       clearInterval(timer.value);
     }
+    console.log(sessionInSeconds.value);
+    
   }, 1000);
 };
 
@@ -74,7 +76,7 @@ onUnmounted(() => {
     {{ $t('sessionDuration') }} {{ prettyTime(sessionInSeconds) }}
   </p>
   <div class="end-session" v-if="sessionInSeconds === 0">
-    <h2>{{ $('congrats') }}</h2>
+    <h2>{{ $t('congrats') }}</h2>
     <p>{{ addConfettis }}</p>
     <div class="startOverButton">
       <button @click="store.goToHomepage" class="start-over-button">{{ $t('startOver') }}</button>
